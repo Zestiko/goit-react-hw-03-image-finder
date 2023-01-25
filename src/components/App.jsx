@@ -7,6 +7,7 @@ import { Modal } from './Modal/Modal';
 import axios from 'axios';
 import photo from '../Photo/photo.jpg';
 import { ThreeDots } from 'react-loader-spinner';
+import PropTypes from 'prop-types';
 
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '31396399-0c0a53b00e87586b8fc1cddd2';
@@ -20,13 +21,14 @@ export class App extends Component {
     modalImage: '',
   };
 
-  hendelShowModal() {
-    this.setState({ modalImage: photo });
-  }
+  hendelShowModal = value => {
+    console.log('hendelShowModal');
+    this.setState({ modalImage: value });
+  };
 
-  hendelCloseModal() {
+  hendelCloseModal = () => {
     this.setState({ modalImage: '' });
-  }
+  };
   componentDidUpdate(_, prevState) {
     const { search, page } = this.state;
     if (search !== prevState.search || page !== prevState.page) {
@@ -66,10 +68,7 @@ export class App extends Component {
     return (
       <div className={css.App}>
         <SearchBar onSubmitHendler={this.hendelSerchSubmit} />
-        <ImageGallery
-          images={gallary}
-          onImageClick={() => this.hendelShowModal()}
-        />
+        <ImageGallery images={gallary} onImageClick={this.hendelShowModal} />
         {gallary.length > 0 && (
           <>
             {!isLoaderVisible && (
@@ -91,9 +90,9 @@ export class App extends Component {
           </>
         )}
 
-        {modalImage > 0 && (
-          <Modal closeModal={() => this.hendelCloseModal()}>
-            <img src={photo} alt="123" />{' '}
+        {modalImage.length > 0 && (
+          <Modal closeModal={this.hendelCloseModal}>
+            <img src={modalImage} alt="123" />{' '}
           </Modal>
         )}
       </div>

@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 import { Button } from './Button/Button';
 import { Modal } from './Modal/Modal';
 import axios from 'axios';
-import photo from '../Photo/photo.jpg';
+// import photo from '../Photo/photo.jpg';
 import { ThreeDots } from 'react-loader-spinner';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '31396399-0c0a53b00e87586b8fc1cddd2';

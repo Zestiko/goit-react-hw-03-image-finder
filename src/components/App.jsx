@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Button } from './Button/Button';
 
 import axios from 'axios';
-// import photo from '../Photo/photo.jpg';
+
 import { ThreeDots } from 'react-loader-spinner';
 // import PropTypes from 'prop-types';
 

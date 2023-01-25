@@ -23,14 +23,17 @@ export class Modal extends Component {
 
   render() {
     return createPortal(
-      <div className={css.Overlay} onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          this.props.closeModal();
-        }
-      }}>
+      <div
+        className={css.Overlay}
+        onClick={e => {
+          if (e.target === e.currentTarget) {
+            this.props.closeModal();
+          }
+        }}
+      >
         <div className={css.Modal}>
-          {/* <img src={modalImage} alt={altPhotos} /> */}
-          {this.props.children}
+          <img src={this.props.modalImage} alt={this.props.altPhotos} />
+          {/* {this.props.children} */}
         </div>
       </div>,
       modalRoot

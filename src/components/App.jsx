@@ -3,7 +3,7 @@ import { SearchBar } from './Searchbar/Searchbar';
 import css from './App.module.css';
 import React, { Component } from 'react';
 import { Button } from './Button/Button';
-import { Modal } from './Modal/Modal';
+
 import axios from 'axios';
 // import photo from '../Photo/photo.jpg';
 import { ThreeDots } from 'react-loader-spinner';
@@ -18,17 +18,17 @@ export class App extends Component {
     search: '',
     page: 1,
     isLoaderVisible: false,
-    modalImage: '',
+    // modalImage: '',
   };
 
-  hendelShowModal = value => {
-    console.log('hendelShowModal');
-    this.setState({ modalImage: value });
-  };
+  // hendelShowModal = value => {
+  //   console.log('hendelShowModal');
+  //   this.setState({ modalImage: value });
+  // };
 
-  hendelCloseModal = () => {
-    this.setState({ modalImage: '' });
-  };
+  // hendelCloseModal = () => {
+  //   this.setState({ modalImage: '' });
+  // };
   componentDidUpdate(_, prevState) {
     const { search, page } = this.state;
     if (search !== prevState.search || page !== prevState.page) {
@@ -90,11 +90,7 @@ export class App extends Component {
           </>
         )}
 
-        {modalImage.length > 0 && (
-          <Modal closeModal={this.hendelCloseModal}>
-            <img src={modalImage} alt="123" />{' '}
-          </Modal>
-        )}
+        
       </div>
     );
   }

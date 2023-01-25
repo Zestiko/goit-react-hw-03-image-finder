@@ -18,17 +18,8 @@ export class App extends Component {
     search: '',
     page: 1,
     isLoaderVisible: false,
-    // modalImage: '',
   };
 
-  // hendelShowModal = value => {
-  //   console.log('hendelShowModal');
-  //   this.setState({ modalImage: value });
-  // };
-
-  // hendelCloseModal = () => {
-  //   this.setState({ modalImage: '' });
-  // };
   componentDidUpdate(_, prevState) {
     const { search, page } = this.state;
     if (search !== prevState.search || page !== prevState.page) {
@@ -64,7 +55,7 @@ export class App extends Component {
     }));
   };
   render() {
-    const { gallary, isLoaderVisible, modalImage } = this.state;
+    const { gallary, isLoaderVisible } = this.state;
     return (
       <div className={css.App}>
         <SearchBar onSubmitHendler={this.hendelSerchSubmit} />
@@ -89,8 +80,6 @@ export class App extends Component {
             </div>
           </>
         )}
-
-        
       </div>
     );
   }

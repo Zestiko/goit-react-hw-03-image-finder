@@ -17,7 +17,7 @@ export class ImageGalleryItem extends Component {
     this.setState(prevState => ({ modalIsOpnet: !prevState.modalIsOpnet }));
   };
   render() {
-    const { smallImage, altPhotos, onClick, lagImage } = this.props;
+    const { smallImage, altPhotos,  lagImage } = this.props;
     return (
       <>
         <li className={css.ImageGalleryItem}>

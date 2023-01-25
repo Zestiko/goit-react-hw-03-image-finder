@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Button } from './Button/Button';
 import { Modal } from './Modal/Modal';
 import axios from 'axios';
+import photo from '../Photo/photo.jpg';
 import { ThreeDots } from 'react-loader-spinner';
 
 const BASE_URL = 'https://pixabay.com/api/';
@@ -16,8 +17,16 @@ export class App extends Component {
     search: '',
     page: 1,
     isLoaderVisible: false,
+    modalImage: '',
   };
 
+  hendelShowModal() {
+    this.setState({ modalImage: photo });
+  }
+
+  hendelCloseModal() {
+    this.setState({ modalImage: '' });
+  }
   componentDidUpdate(_, prevState) {
     const { search, page } = this.state;
     if (search !== prevState.search || page !== prevState.page) {
@@ -31,7 +40,7 @@ export class App extends Component {
   };
 
   handelFetch = async serchValue => {
-    const { page, } = this.state;
+    const { page } = this.state;
     try {
       this.setState({ isLoaderVisible: true });
       const { data } = await axios.get(
@@ -53,14 +62,19 @@ export class App extends Component {
     }));
   };
   render() {
-    const { gallary, isLoaderVisible } = this.state;
+    const { gallary, isLoaderVisible, modalImage } = this.state;
     return (
       <div className={css.App}>
         <SearchBar onSubmitHendler={this.hendelSerchSubmit} />
-        <ImageGallery images={gallary} />
+        <ImageGallery
+          images={gallary}
+          onImageClick={() => this.hendelShowModal()}
+        />
         {gallary.length > 0 && (
           <>
-            {!isLoaderVisible && <Button onClick={() => this.handeLoadMore()} />}
+            {!isLoaderVisible && (
+              <Button onClick={() => this.handeLoadMore()} />
+            )}
             <div className={css.loader}>
               <ThreeDots
                 height="80"
@@ -77,7 +91,11 @@ export class App extends Component {
           </>
         )}
 
-        {/* <Modal/> */}
+        {modalImage > 0 && (
+          <Modal closeModal={() => this.hendelCloseModal()}>
+            <img src={photo} alt="123" />{' '}
+          </Modal>
+        )}
       </div>
     );
   }

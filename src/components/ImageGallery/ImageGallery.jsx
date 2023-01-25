@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
-import { Modal } from '../Modal/Modal';
 
 import css from './ImageGallery.module.css';
 
@@ -14,7 +13,6 @@ export class ImageGallery extends Component {
     this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
   }
   render() {
-    const { isModalOpen } = this.state;
     return (
       <>
         <ul className={css.gallery}>
@@ -26,10 +24,8 @@ export class ImageGallery extends Component {
                   key={id}
                   altPhotos={tags}
                   onClick={() => this.handelClick()}
+                  onImageClick={this.props.onImageClick}
                 />
-                {isModalOpen && (
-                  <Modal key={id} modalImage={webformatURL} altPhotos={tags} />
-                )}
               </>
             );
           })}

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 
 import css from './ImageGallery.module.css';
+import PropTypes from 'prop-types';
 
 export class ImageGallery extends Component {
   state = {
@@ -9,19 +10,6 @@ export class ImageGallery extends Component {
     lagImage: '',
   };
 
-  // handelClick = img => {
-  //   console.log('imagegallery запись в стейт имг');
-  //   this.setState({ lagImage: img });
-  //   // this.props.onImageClick(this.state.lagImage);
-  // };
-
-  // componentDidUpdate(_, prevState) {
-  //   if (
-  //     this.state.lagImage !== prevState.lagImage 
-  //   ) {
-  //     this.props.onImageClick(this.state.lagImage);
-  //   }
-  // }
   render() {
     return (
       <>
@@ -34,7 +22,6 @@ export class ImageGallery extends Component {
                   key={id}
                   altPhotos={tags}
                   lagImage={largeImageURL}
-                  
                 />
               );
             }
@@ -44,3 +31,14 @@ export class ImageGallery extends Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+    })
+  ),
+};

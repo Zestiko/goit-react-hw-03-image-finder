@@ -7,7 +7,7 @@ import { Button } from './Button/Button';
 import axios from 'axios';
 
 import { ThreeDots } from 'react-loader-spinner';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '31396399-0c0a53b00e87586b8fc1cddd2';
@@ -59,7 +59,7 @@ export class App extends Component {
     return (
       <div className={css.App}>
         <SearchBar onSubmitHendler={this.hendelSerchSubmit} />
-        <ImageGallery images={gallary} onImageClick={this.hendelShowModal} />
+        <ImageGallery images={gallary} />
         {gallary.length > 0 && (
           <>
             {!isLoaderVisible && (
@@ -84,3 +84,15 @@ export class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  search: PropTypes.string,
+  gallary: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+    })
+  ),
+};

@@ -18,6 +18,8 @@ export class App extends Component {
     search: '',
     page: 1,
     isLoaderVisible: false,
+    totalFind: 0,
+    totalHits: 0,
   };
 
   componentDidUpdate(_, prevState) {
@@ -28,7 +30,7 @@ export class App extends Component {
     }
   }
   hendelSerchSubmit = value => {
-    this.setState({ search: value, page: 1, gallary: [] });
+    this.setState({ search: value, page: 1, gallary: [], totalFind: 0 });
     console.log(this.state.search);
   };
 
@@ -39,8 +41,11 @@ export class App extends Component {
       const { data } = await axios.get(
         `${BASE_URL}?key=${API_KEY}&per_page=15&page=${page}&q=${serchValue}&image_type=photo&pretty=true`
       );
+      console.log(data)
       this.setState(prevState => ({
         gallary: [...prevState.gallary, ...data.hits],
+        totalFind: prevState.totalFind + data.hits.length,
+        totalHits: data.totalHits,
       }));
     } catch (error) {
       console.log(error);
@@ -55,31 +60,32 @@ export class App extends Component {
     }));
   };
   render() {
-    const { gallary, isLoaderVisible } = this.state;
+    const { gallary, isLoaderVisible, totalFind, totalHits } = this.state;
     return (
       <div className={css.App}>
         <SearchBar onSubmitHendler={this.hendelSerchSubmit} />
         <ImageGallery images={gallary} />
-        {gallary.length > 0 && (
-          <>
-            {!isLoaderVisible && (
-              <Button onClick={() => this.handeLoadMore()} />
-            )}
-            <div className={css.loader}>
-              <ThreeDots
-                height="80"
-                width="80"
-                radius="9"
-                margin="10"
-                color="#3f51b5"
-                ariaLabel="three-dots-loading"
-                wrapperStyle={{}}
-                wrapperClassName=""
-                visible={isLoaderVisible}
-              />
-            </div>
-          </>
-        )}
+        {gallary.length > 0 &&
+          (totalFind !== totalHits && (
+            <>
+              {!isLoaderVisible && (
+                <Button onClick={() => this.handeLoadMore()} />
+              )}
+              <div className={css.loader}>
+                <ThreeDots
+                  height="80"
+                  width="80"
+                  radius="9"
+                  margin="10"
+                  color="#3f51b5"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClassName=""
+                  visible={isLoaderVisible}
+                />
+              </div>
+            </>
+          ))}
       </div>
     );
   }
